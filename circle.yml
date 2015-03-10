@@ -1,0 +1,13 @@
+general:
+  branches:
+    only:
+      - master
+  artifacts:
+    - "app/build/outputs/ipa/app-release-unsigned.ipa"
+deployment:
+  master:
+    branch: master
+    commands:
+      - ./xcodebuild assembleRelease
+      - curl -F "file=@app/build/outputs/ipa/app-release-unsigned.ipa" -F "token=f90a5e23b9af0227473d6b2fb35289572dae4f22" -F "message=test" https://deploygate.com/api/users/tamiya/apps
+
